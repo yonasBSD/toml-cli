@@ -107,7 +107,7 @@ fn main() {
             query,
             value_str,
             opts,
-        } => set(&path, &query, &value_str, opts),
+        } => set(&path, &query, &value_str, &opts),
     };
     result.unwrap_or_else(|err| {
         match err.downcast::<SilentError>() {
@@ -195,7 +195,7 @@ fn print_toml_fragment(doc: &Document, tpath: &[TpathSegment]) {
     print!("{}", doc);
 }
 
-fn set(path: &PathBuf, query: &str, value_str: &str, opts: SetOpts) -> Result<(), Error> {
+fn set(path: &PathBuf, query: &str, value_str: &str, opts: &SetOpts) -> Result<(), Error> {
     let tpath = parse_query_cli(query)?.0;
     let mut doc = read_parse(path)?;
 
